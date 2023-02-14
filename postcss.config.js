@@ -7,9 +7,7 @@ export default {
 						stage: 2,
 						features: {
 							"nesting-rules": true,
-							"custom-media-queries": {
-								importFrom: "src/index.css",
-							},
+							"custom-media-queries": true,
 							"all-property": false,
 							"any-link-pseudo-class": false,
 							"custom-properties": false,
@@ -30,9 +28,7 @@ export default {
 						stage: 2,
 						features: {
 							"nesting-rules": true,
-							"custom-media-queries": {
-								importFrom: "src/index.css",
-							},
+							"custom-media-queries": true,
 							"all-property": false,
 							"any-link-pseudo-class": false,
 							"custom-properties": false,
