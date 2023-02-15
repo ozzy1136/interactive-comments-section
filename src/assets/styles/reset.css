@@ -1,0 +1,261 @@
+/* github.com/resetercss/reseter.css */
+/* github.com/csstools/sanitize.css */
+/* github.com/jensimmons/cssremedy */
+
+@font-face {
+	font-family: ui-monospace;
+	src: local(".AppleSystemUIFontMonospaced-Regular"), local("Segoe UI Mono"),
+		local("UbuntuMono"), local("Roboto-Mono"), local("Menlo");
+}
+
+@font-face {
+	font-family: ui-monospace;
+	font-style: italic;
+	src: local(".AppleSystemUIFontMonospaced-RegularItalic"),
+		local("Segoe UI Mono Italic"), local("UbuntuMono-Italic"),
+		local("Roboto-Mono-Italic"), local("Menlo-Italic");
+}
+
+@font-face {
+	font-family: ui-monospace;
+	font-weight: bold;
+	src: local(".AppleSystemUIFontMonospaced-Bold"), local("Segoe UI Mono Bold"),
+		local("UbuntuMono-Bold"), local("Roboto-Mono-Bold"), local("Menlo-Bold");
+}
+
+@font-face {
+	font-family: ui-monospace;
+	font-style: italic;
+	font-weight: bold;
+	src: local(".AppleSystemUIFontMonospaced-BoldItalic"),
+		local("Segoe UI Mono Bold Italic"), local("UbuntuMono-BoldItalic"),
+		local("Roboto-Mono-BoldItalic"), local("Menlo-BoldItalic");
+}
+
+:root {
+	text-size-adjust: 100%;
+}
+
+* {
+	&,
+	&::before,
+	&::after {
+		box-sizing: inherit;
+		padding: 0;
+		margin: 0;
+		animation-delay: -1ms;
+		animation-duration: 1ms;
+		animation-iteration-count: 1;
+		background-attachment: initial;
+		scroll-behavior: auto;
+		transition-delay: 0s;
+		transition-duration: 0s;
+	}
+}
+
+html {
+	box-sizing: border-box;
+}
+
+body {
+	min-height: 100vh;
+	position: relative;
+}
+
+:where(h1, h2, h3, h4, h5, h6) {
+	font-weight: normal;
+}
+
+:where(p) {
+	max-width: 60ch;
+}
+
+:where(small) {
+	font-size: 85%;
+}
+
+:where(b, strong) {
+	font-weight: bolder;
+}
+
+:where(code, kbd, samp, pre) {
+	font-size: 1rem;
+	font-family: ui-monospace, /* macOS 10.10+ */ "Menlo",
+		/* Windows 6+ */ "Consolas", /* Android 4+ */ "Roboto Mono",
+		/* Ubuntu 10.10+ */ "Ubuntu Monospace", /* KDE Plasma 5+ */ "Noto Mono",
+		/* KDE Plasma 4+ */ "Oxygen Mono",
+		/* Linux/OpenOffice fallback */ "Liberation Mono",
+		/* fallback */ monospace, /* macOS emoji */ "Apple Color Emoji",
+		/* Windows emoji */ "Segoe UI Emoji",
+		/* Windows emoji */ "Segoe UI Symbol",
+		/* Linux emoji */ "Noto Color Emoji";
+}
+
+:where(pre) {
+	white-space: pre-wrap;
+}
+
+:where(a) {
+	color: inherit;
+	background-color: transparent;
+}
+
+:where(abbr[title]) {
+	text-decoration: underline;
+	text-decoration: underline dotted;
+}
+
+:where(hr) {
+	box-sizing: content-box;
+	border-style: solid;
+	border-width: 1px 0 0;
+	color: inherit;
+	height: 0;
+	overflow: visible;
+}
+
+:where(nav) :where(ul, ol) {
+	list-style-type: none;
+}
+
+:where(nav li)::before {
+	content: "\200B";
+	position: absolute;
+}
+
+:where(details) {
+	display: block;
+}
+
+:where(summary) {
+	display: list-item;
+}
+
+:where(button, [type="button" i], [type="reset" i], [type="submit" i]) {
+	-webkit-appearance: button;
+}
+
+:where(progress) {
+	vertical-align: baseline;
+}
+
+:where([type="search" i]) {
+	-webkit-appearance: textfield;
+	outline-offset: -2px;
+}
+
+:where(img, svg, video, canvas, iframe, input, select, textarea, audio, embed, object) {
+	max-width: 100%;
+}
+
+:where(img, svg, video, canvas, iframe, input, select, textarea) {
+	height: auto;
+}
+
+:where(img, svg, video, canvas, audio, iframe, embed, object) {
+	vertical-align: middle;
+}
+
+:where(picture) {
+	display: contents;
+}
+
+:where(source) {
+	display: none;
+}
+
+:where(svg:not([fill])) {
+	fill: currentColor;
+}
+
+:where([hidden]) {
+	display: none;
+}
+
+::-webkit-inner-spin-button,
+::-webkit-outer-spin-button {
+	height: auto;
+}
+
+::-webkit-input-placeholder {
+	color: inherit;
+	opacity: 0.54;
+}
+
+::-webkit-search-decoration {
+	-webkit-appearance: none;
+}
+
+::-webkit-file-upload-button {
+	-webkit-appearance: button;
+	font: inherit;
+}
+
+/**
+ * Change the cursor on busy elements in all browsers (opinionated).
+ */
+
+:where([aria-busy="true" i]) {
+	cursor: progress;
+}
+
+/*
+ * Change the cursor on disabled, not-editable, or otherwise
+ * inoperable elements in all browsers (opinionated).
+ */
+
+:where([aria-disabled="true" i], [disabled]) {
+	cursor: not-allowed;
+}
+
+/*
+*
+* Utility Classes
+*
+*/
+
+/* Fallback for when unable to directly set aria-hidden */
+:where(.sr-only) {
+	clip: rect(1px, 1px, 1px, 1px);
+	clip-path: inset(50%);
+	height: 1px;
+	width: 1px;
+	margin: -1px;
+	overflow: hidden;
+	padding: 0;
+	position: absolute;
+}
+
+:where(.sr-only-with-focus) {
+	display: initial;
+	position: absolute;
+}
+
+:where(.sr-only-with-focus:not(:focus)) {
+	clip: rect(0, 0, 0, 0);
+}
+
+:where(.center-children) {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+:where(.page-section-container) {
+	display: grid;
+	grid-template-columns:
+		[full-start] var(--page-gap-size, 8px) [wrapper-start] var(--content-columns, 1fr)
+		[wrapper-end] var(--page-gap-size, 8px) [full-end];
+}
+
+:where(.avatar) {
+	position: relative;
+}
+
+:where(.avatar-border) {
+	position: aboslute;
+	width: 100%;
+	height: 100%;
+	border: 2px solid #000;
+	opacity: 0.1;
+}
