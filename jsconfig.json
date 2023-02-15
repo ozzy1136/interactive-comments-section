@@ -5,8 +5,14 @@
 		"moduleResolution": "Node16",
 		"baseUrl": ".",
 		"paths": {
+			"@icons/*": ["src/assets/icons/*"],
+			"@images/*": ["src/assets/images/*"],
+			"@styles/*": ["src/assets/styles/*"],
 			"@components/*": ["src/components/*/index.jsx"],
-			"@assets/*": ["src/assets/*"]
+			"@data/*": ["src/data/*"],
+			"@features/*": ["src/features/*/index.jsx"],
+			"@hooks/*": ["src/hooks/*"],
+			"@utils/*": ["src/utils/*.js"]
 		},
 		"strictNullChecks": true,
 		"strictFunctionTypes": true
