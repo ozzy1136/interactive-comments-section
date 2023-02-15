@@ -2,6 +2,9 @@ const prod = process.env.NODE_ENV === "production";
 
 module.exports = {
 	plugins: {
+		"@csstools/postcss-global-data": {
+			files: ["src/assets/styles/custom-media-queries.css"],
+		},
 		"postcss-preset-env": {
 			autoprefixer: prod ? true : false,
 			stage: 2,
