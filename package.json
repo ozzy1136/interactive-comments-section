@@ -11,6 +11,7 @@
 	"dependencies": {
 		"@csstools/postcss-global-data": "^1.0.2",
 		"@next/font": "^13.1.6",
+		"@svgr/webpack": "^6.5.1",
 		"eslint": "8.34.0",
 		"eslint-config-next": "13.1.6",
 		"next": "13.1.6",
