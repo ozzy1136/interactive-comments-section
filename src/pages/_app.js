@@ -7,6 +7,7 @@ const rubik = Rubik({
 	weight: ["400", "500", "700"],
 	style: ["normal"],
 	subsets: ["latin"],
+	variable: "--ff-primary",
 });
 
 export default function App({ Component, pageProps }) {
@@ -20,12 +21,9 @@ export default function App({ Component, pageProps }) {
 					href="/favicon-32x32.png"
 				/>
 			</Head>
-			<style jsx global>{`
-				:root {
-					--ff-primary: ${rubik.style.fontFamily};
-				}
-			`}</style>
-			<Component {...pageProps} />
+			<div className={rubik.variable}>
+				<Component {...pageProps} />
+			</div>
 		</>
 	);
 }
