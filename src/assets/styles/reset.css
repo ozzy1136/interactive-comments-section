@@ -247,13 +247,7 @@ body {
 	clip: rect(0, 0, 0, 0);
 }
 
-:where(.center-children) {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-}
-
-:where(.page-section-container) {
+:where(.section-container) {
 	display: grid;
 	grid-template-columns:
 		[full-start] var(--page-gap-size, 8px) [wrapper-start] var(
@@ -261,16 +255,4 @@ body {
 			1fr
 		)
 		[wrapper-end] var(--page-gap-size, 8px) [full-end];
-}
-
-:where(.avatar) {
-	position: relative;
-}
-
-:where(.avatar-border) {
-	position: aboslute;
-	width: 100%;
-	height: 100%;
-	border: 2px solid #000;
-	opacity: 0.1;
 }
