@@ -144,7 +144,19 @@ body {
 	outline-offset: -2px;
 }
 
-:where(img, svg, video, canvas, iframe, input, select, textarea, audio, embed, object) {
+:where(
+		img,
+		svg,
+		video,
+		canvas,
+		iframe,
+		input,
+		select,
+		textarea,
+		audio,
+		embed,
+		object
+	) {
 	max-width: 100%;
 }
 
@@ -244,7 +256,10 @@ body {
 :where(.page-section-container) {
 	display: grid;
 	grid-template-columns:
-		[full-start] var(--page-gap-size, 8px) [wrapper-start] var(--content-columns, 1fr)
+		[full-start] var(--page-gap-size, 8px) [wrapper-start] var(
+			--content-columns,
+			1fr
+		)
 		[wrapper-end] var(--page-gap-size, 8px) [full-end];
 }
 
