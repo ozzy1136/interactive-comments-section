@@ -17,5 +17,5 @@
 		"strictNullChecks": true,
 		"strictFunctionTypes": true
 	},
-	"exclude": ["node_modules", "**/node_modules/*", ".next"]
+	"exclude": ["node_modules", "**/node_modules/*", ".next", "out"]
 }
