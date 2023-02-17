@@ -10,6 +10,9 @@ import CommentThread from "./components/CommentThread";
 export default function CommentsSection() {
 	return (
 		<section className={comments_container}>
+			<h1 aria-hidden="false" hidden>
+				Comments Section
+			</h1>
 			<ol className={comments_threads_container}>
 				{commentsData.comments.map((commentData) => (
 					<li key={commentData.id}>

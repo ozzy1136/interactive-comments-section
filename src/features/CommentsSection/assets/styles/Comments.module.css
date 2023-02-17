@@ -1,7 +1,7 @@
 .comments_container {
 	width: 90vw;
 	margin-inline: auto;
-	margin-block-start: 2em;
+	margin-block: 2em;
 }
 
 .comments_threads_container,
@@ -11,17 +11,6 @@
 
 .comments_threads_container {
 	--reply-inline-spacer: 1.2em;
-}
-
-/* TODO fix styles for replies side bar */
-.comment_reply_wrapper::before {
-	content: "";
-	display: block;
-	position: absolute;
-	height: 20%;
-	width: 2px;
-	background-color: var(--c-grayish-blue);
-	left: calc(var(--reply-inline-spacer));
 }
 
 .comment_container {
@@ -64,7 +53,7 @@
 }
 
 .avatar {
-	width: 1.5em;
+	width: 1.7em;
 	aspect-ratio: 1;
 	position: relative;
 	flex-shrink: 0;
@@ -77,10 +66,6 @@
 	border: 2px solid #000;
 	opacity: 0.1;
 	border-radius: 50%;
-}
-
-.username {
-	font-size: 1rem;
 }
 
 .icon {

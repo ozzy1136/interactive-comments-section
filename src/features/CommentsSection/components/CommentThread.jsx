@@ -1,4 +1,3 @@
-import { comment_reply_wrapper } from "../assets/styles/Comments.module.css";
 import Comment from "./Comment";
 
 export default function CommentThread({ data, level = 0 }) {
@@ -6,25 +5,48 @@ export default function CommentThread({ data, level = 0 }) {
 
 	return (
 		<>
-			<li
-				className={`${level > 0 && comment_reply_wrapper}`}
-				style={{
-					marginInlineStart: `calc(var(--reply-inline-spacer) * ${level})`,
-				}}
-			>
-				<Comment data={parent} />
-			</li>
-			{replies !== undefined && (
-				<>
-					{replies.map((reply) => (
-						<CommentThread
-							data={reply}
-							level={level + 1}
-							key={reply.id}
-						/>
-					))}
-				</>
-			)}
+			<style jsx>{`
+				.comment_thread_wrapper {
+					position: relative;
+				}
+
+				.comment_thread_wrapper::before {
+					content: "";
+					display: block;
+					background-color: var(--c-light-gray);
+					position: absolute;
+					height: calc(100% + 1em);
+					width: 2px;
+					left: calc(${level - 1} * 1.25em);
+				}
+
+				.comment_thread_wrapper:last-child::before {
+					height: 100%;
+				}
+
+				.comment_wrapper {
+					position: relative;
+					margin-inline-start: calc(
+						var(--reply-inline-spacer) * ${level}
+					);
+				}
+			`}</style>
+			<div className={level > 0 && "comment_thread_wrapper"}>
+				<li className={level > 0 && "comment_wrapper"}>
+					<Comment data={parent} level={level} />
+				</li>
+				{replies !== undefined && (
+					<>
+						{replies.map((reply) => (
+							<CommentThread
+								data={reply}
+								level={level + 1}
+								key={reply.id}
+							/>
+						))}
+					</>
+				)}
+			</div>
 		</>
 	);
 }

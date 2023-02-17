@@ -17,7 +17,7 @@ export default function Comment({ data }) {
 					/>
 					<div className={styles.avatar_border}></div>
 				</div>
-				<h2 className={styles.username}>{data.user.username}</h2>
+				<span>{data.user.username}</span>
 				<p>
 					<small>{data.createdAt}</small>
 				</p>
