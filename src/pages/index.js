@@ -1,6 +1,6 @@
 import Head from "next/head";
 
-import Comments from "@features/Comments";
+import CommentsSection from "@features/CommentsSection";
 
 export default function Home() {
 	return (
@@ -9,7 +9,7 @@ export default function Home() {
 				<title>Frontend Mentor | Interactive comments section</title>
 			</Head>
 			<main>
-				<Comments />
+				<CommentsSection />
 			</main>
 		</>
 	);

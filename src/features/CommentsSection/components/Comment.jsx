@@ -7,19 +7,21 @@ import ReplyIcon from "@icons/icon-reply.svg";
 
 export default function Comment({ data }) {
 	return (
-		<article className={styles.comment_wrapper}>
-			<div className={styles.comment_details_container}>
+		<article className={styles.comment_container}>
+			<header className={styles.comment_details_container}>
 				<div className={styles.avatar}>
 					<Image
 						src={data.user.image.webp}
 						fill
-						alt={`Avatar of ${data.user.name}`}
+						alt={`Avatar of profile ${data.user.username}`}
 					/>
 					<div className={styles.avatar_border}></div>
 				</div>
 				<h2 className={styles.username}>{data.user.username}</h2>
-				<p>{data.createdAt}</p>
-			</div>
+				<p>
+					<small>{data.createdAt}</small>
+				</p>
+			</header>
 			<div className={styles.comment_text_container}>
 				<p>{data.content}</p>
 			</div>
