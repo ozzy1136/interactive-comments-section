@@ -1,7 +1,7 @@
 import styles from "../assets/styles/Comments.module.css";
-import MinusIcon from "@icons/icon-minus.svg";
-import PlusIcon from "@icons/icon-plus.svg";
-import ReplyIcon from "@icons/icon-reply.svg";
+import MinusIcon from "../assets/icons/icon-minus.svg";
+import PlusIcon from "../assets/icons/icon-plus.svg";
+import ReplyIcon from "../assets/icons/icon-reply.svg";
 import Avatar from "./Avatar";
 
 export default function Comment({ data }) {
