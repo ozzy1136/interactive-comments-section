@@ -1,5 +1,5 @@
 import styles from "../assets/styles/Comments.module.css";
-import { useCurrentUser } from "@context/CurrentUserProvider";
+import { useCurrentUser } from "@context/CurrentUserContext";
 import Avatar from "./Avatar";
 
 function handleSubmitNewComment(e) {

@@ -1,7 +1,7 @@
 import Head from "next/head";
 
 import projectData from "@data/data.json";
-import { CurrentUserContext } from "@context/CurrentUserProvider";
+import { CurrentUserContext } from "@context/CurrentUserContext";
 import CommentsSection from "@features/CommentsSection";
 
 export default function Home() {
