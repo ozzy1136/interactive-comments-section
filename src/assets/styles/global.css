@@ -14,10 +14,7 @@
 
 body {
 	background-color: var(--c-very-light-gray);
+	color: var(--c-grayish-blue);
 	font-family: var(--ff-primary);
 	line-height: 1.5;
-}
-
-p {
-	color: var(--c-grayish-blue);
 }
