@@ -1,22 +1,17 @@
-import Image from "next/image";
-
 import styles from "../assets/styles/Comments.module.css";
 import MinusIcon from "@icons/icon-minus.svg";
 import PlusIcon from "@icons/icon-plus.svg";
 import ReplyIcon from "@icons/icon-reply.svg";
+import Avatar from "./Avatar";
 
 export default function Comment({ data }) {
 	return (
 		<article className={styles.comment_container}>
 			<header className={styles.comment_details_container}>
-				<div className={styles.avatar}>
-					<Image
-						src={data.user.image.webp}
-						fill
-						alt={`Avatar of profile ${data.user.username}`}
-					/>
-					<div className={styles.avatar_border}></div>
-				</div>
+				<Avatar
+					src={data.user.image.webp}
+					username={data.user.username}
+				/>
 				<span>{data.user.username}</span>
 				<p>
 					<small>{data.createdAt}</small>
