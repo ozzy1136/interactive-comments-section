@@ -1,5 +1,7 @@
 import Head from "next/head";
 
+import projectData from "@data/data.json";
+import { CurrentUserContext } from "@context/CurrentUserProvider";
 import CommentsSection from "@features/CommentsSection";
 
 export default function Home() {
@@ -8,9 +10,11 @@ export default function Home() {
 			<Head>
 				<title>Frontend Mentor | Interactive comments section</title>
 			</Head>
-			<main>
-				<CommentsSection />
-			</main>
+			<CurrentUserContext.Provider value={projectData.currentUser}>
+				<main>
+					<CommentsSection />
+				</main>
+			</CurrentUserContext.Provider>
 		</>
 	);
 }
