@@ -9,6 +9,7 @@
 			"@images/*": ["src/assets/images/*"],
 			"@styles/*": ["src/assets/styles/*"],
 			"@components/*": ["src/components/*/index.jsx"],
+			"@context/*": ["src/context/*.js"],
 			"@data/*": ["src/data/*"],
 			"@features/*": ["src/features/*/index.jsx"],
 			"@hooks/*": ["src/hooks/*"],
