@@ -7,7 +7,7 @@ export default function Avatar({ src, username }) {
 			<Image
 				src={src}
 				fill
-				sizes="1.7em"
+				sizes="1.8em"
 				alt={`Profile photo of user ${username}`}
 			/>
 			<div className={avatar_border}></div>

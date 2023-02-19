@@ -12,7 +12,9 @@ export default function Comment({ data }) {
 					src={data.user.image.webp}
 					username={data.user.username}
 				/>
-				<span>{data.user.username}</span>
+				<span className={styles.comment_details_username}>
+					{data.user.username}
+				</span>
 				<p>
 					<small>{data.createdAt}</small>
 				</p>
@@ -27,7 +29,7 @@ export default function Comment({ data }) {
 			</div>
 			<div className={styles.comment_reply_container}>
 				<ReplyIcon className={styles.icon} />
-				<span>Reply</span>
+				<span className={styles.comment_reply_text}>Reply</span>
 			</div>
 		</article>
 	);

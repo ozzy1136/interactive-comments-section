@@ -1,27 +1,24 @@
-import commentsData from "@data/data.json";
-
-import {
-	comments_container,
-	comments_threads_container,
-	comments_thread_container,
-} from "./assets/styles/Comments.module.css";
+import styles from "./assets/styles/Comments.module.css";
+import projectData from "@data/data.json";
 import CommentThread from "./components/CommentThread";
+import CreateNewComment from "./components/CreateNewComment";
 
 export default function CommentsSection() {
 	return (
-		<section className={comments_container}>
+		<section className={`${styles.comments_container} section-container`}>
 			<h1 aria-hidden="false" hidden>
 				Comments Section
 			</h1>
-			<ol className={comments_threads_container}>
-				{commentsData.comments.map((commentData) => (
+			<ol className={styles.comments_threads_container}>
+				{projectData.comments.map((commentData) => (
 					<li key={commentData.id}>
-						<ul className={comments_thread_container}>
+						<ul className={styles.comments_thread_container}>
 							<CommentThread data={commentData} />
 						</ul>
 					</li>
 				))}
 			</ol>
+			<CreateNewComment action={"Send"} />
 		</section>
 	);
 }
