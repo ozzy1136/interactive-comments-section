@@ -23,12 +23,11 @@ export default function CreateNewComment({ action }) {
 					name="new-comment-text"
 					id="new-comment-text"
 				></textarea>
-				<button
+				<input
 					className={`${styles.newcomment_form_button} ${styles.button_action}`}
 					type="submit"
-				>
-					{action}
-				</button>
+					value={action}
+				/>
 			</form>
 			<div className={styles.newcomment_avatar_wrapper}>
 				<Avatar
