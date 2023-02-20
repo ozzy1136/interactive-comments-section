@@ -17,4 +17,5 @@ body {
 	color: var(--c-grayish-blue);
 	font-family: var(--ff-primary);
 	line-height: 1.5;
+	hyphens: auto;
 }
