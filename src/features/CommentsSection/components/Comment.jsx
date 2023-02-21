@@ -94,10 +94,9 @@ export default function Comment({ data, commenter }) {
 				<p>
 					{typeof commenter === "string" && (
 						<span className={styles.comment_content_commenter}>
-							@{commenter}
+							@{commenter}&nbsp;
 						</span>
 					)}
-					&nbsp;
 					{data.content}
 				</p>
 			</div>
