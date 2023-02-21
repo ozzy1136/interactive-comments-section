@@ -144,7 +144,7 @@ export default function Comment({ data, commenter }) {
 				<div className={styles.comment_reply_button_wrapper}>
 					<button
 						type="button"
-						className={styles.comment_action_button}
+						className={`${styles.comment_reply_button} ${styles.comment_action_button}`}
 					>
 						<ReplyIcon className={styles.icon} />
 						<span>Reply</span>

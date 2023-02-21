@@ -87,7 +87,6 @@
 	@media (--viewport-lg) {
 		grid-column: 2 / span 1;
 		grid-row: 1 / span 1;
-		column-gap: 1.5em;
 	}
 }
 
@@ -124,7 +123,7 @@
 }
 
 .comment_content_commenter {
-	color: var(--c-grayish-blue);
+	color: var(--c-moderate-blue);
 	font-weight: 700;
 }
 
@@ -216,6 +215,9 @@
 
 .comment_reply_button_wrapper {
 	justify-self: flex-end;
+}
+
+.comment_reply_button {
 	color: var(--c-moderate-blue);
 }
 
