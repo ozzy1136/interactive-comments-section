@@ -61,6 +61,8 @@ export default function Comment({ data }) {
 		downvotePressed: "false",
 	});
 
+	const isCurrentUser = currentUser.username === data.user.username;
+
 	function handleVote(e) {
 		if (e.currentTarget.ariaLabel === "Up vote") {
 			dispatchVoteInfo({ type: "upvote_clicked" });
@@ -80,6 +82,11 @@ export default function Comment({ data }) {
 				<span className={styles.comment_details_username}>
 					{data.user.username}
 				</span>
+				{isCurrentUser && (
+					<span className={styles.comment_details_label}>
+						<small>you</small>
+					</span>
+				)}
 				{/* In real world case, precise date would be available and would be used with <time> */}
 				<span className={styles.comment_details_date}>
 					<small>{data.createdAt}</small>
@@ -111,24 +118,20 @@ export default function Comment({ data }) {
 					<MinusIcon className={styles.icon} />
 				</button>
 			</div>
-			{currentUser.username === data.user.username ? (
+			{isCurrentUser ? (
 				<div className={styles.comment_useraction_container}>
 					<button
 						type="button"
 						className={`${styles.comment_delete_button} ${styles.comment_action_button}`}
 					>
-						<DeleteIcon
-							className={`${styles.icon} ${styles.comment_action_icon}`}
-						/>
+						<DeleteIcon className={styles.icon} />
 						<span>Delete</span>
 					</button>
 					<button
 						type="button"
 						className={`${styles.comment_edit_button} ${styles.comment_action_button}`}
 					>
-						<EditIcon
-							className={`${styles.icon} ${styles.comment_action_icon}`}
-						/>
+						<EditIcon className={styles.icon} />
 						<span>Edit</span>
 					</button>
 				</div>
@@ -138,9 +141,7 @@ export default function Comment({ data }) {
 						type="button"
 						className={styles.comment_action_button}
 					>
-						<ReplyIcon
-							className={`${styles.icon} ${styles.comment_action_icon}`}
-						/>
+						<ReplyIcon className={styles.icon} />
 						<span>Reply</span>
 					</button>
 				</div>
