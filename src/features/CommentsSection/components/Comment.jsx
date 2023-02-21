@@ -1,10 +1,71 @@
+import { useReducer } from "react";
+
 import styles from "../assets/styles/Comments.module.css";
 import MinusIcon from "../assets/icons/icon-minus.svg";
 import PlusIcon from "../assets/icons/icon-plus.svg";
 import ReplyIcon from "../assets/icons/icon-reply.svg";
 import Avatar from "./Avatar";
 
+function voteInfoReducer(state, action) {
+	switch (action.type) {
+		case "upvote_clicked": {
+			console.log(state);
+			return {
+				...state,
+				score:
+					state.downvotePressed === "true"
+						? state.score + 2
+						: state.upvotePressed === "false"
+						? state.score + 1
+						: state.score - 1,
+				upvotePressed:
+					state.upvotePressed === "false" ? "true" : "false",
+				downvotePressed:
+					state.downvotePressed === "true"
+						? "false"
+						: state.downvotePressed,
+			};
+		}
+		case "downvote_clicked": {
+			console.log(state);
+			return {
+				...state,
+				score:
+					state.upvotePressed === "true"
+						? state.score - 2
+						: state.downvotePressed === "false"
+						? state.score - 1
+						: state.score + 1,
+				downvotePressed:
+					state.downvotePressed === "false" ? "true" : "false",
+				upvotePressed:
+					state.upvotePressed === "true"
+						? "false"
+						: state.upvotePressed,
+			};
+		}
+		default: {
+			throw new Error("Unknown action: " + action.type);
+		}
+	}
+}
+
 export default function Comment({ data }) {
+	const [voteInfo, dispatchVoteInfo] = useReducer(voteInfoReducer, {
+		score: data.score,
+		upvotePressed: "false",
+		downvotePressed: "false",
+	});
+
+	function handleVote(e) {
+		if (e.currentTarget.ariaLabel === "Up vote") {
+			dispatchVoteInfo({ type: "upvote_clicked" });
+		}
+		if (e.currentTarget.ariaLabel === "Down vote") {
+			dispatchVoteInfo({ type: "downvote_clicked" });
+		}
+	}
+
 	return (
 		<article className={styles.comment_container}>
 			<header className={styles.comment_details_container}>
@@ -15,17 +76,36 @@ export default function Comment({ data }) {
 				<span className={styles.comment_details_username}>
 					{data.user.username}
 				</span>
-				<p>
+				{/* In real world case, precise date would be available and would be used with <time> */}
+				<span>
 					<small>{data.createdAt}</small>
-				</p>
+				</span>
 			</header>
-			<div className={styles.comment_text_container}>
+			<div className={styles.comment_content_container}>
 				<p>{data.content}</p>
 			</div>
 			<div className={styles.comment_score_container}>
-				<PlusIcon className={styles.icon} />
-				{data.score}
-				<MinusIcon className={styles.icon} />
+				<button
+					className={`${styles.comment_score_toggle}`}
+					type="button"
+					aria-label="Up vote"
+					aria-pressed={voteInfo.upvotePressed}
+					onClick={handleVote}
+				>
+					<PlusIcon className={styles.icon} />
+				</button>
+				<span className={styles.comment_score_value}>
+					{voteInfo.score}
+				</span>
+				<button
+					className={`${styles.comment_score_toggle}`}
+					type="button"
+					aria-label="Down vote"
+					aria-pressed={voteInfo.downvotePressed}
+					onClick={handleVote}
+				>
+					<MinusIcon className={styles.icon} />
+				</button>
 			</div>
 			<div className={styles.comment_reply_container}>
 				<ReplyIcon className={styles.icon} />

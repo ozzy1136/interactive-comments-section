@@ -10,6 +10,8 @@
 	--c-light-gray: hsl(223, 19%, 93%);
 	--c-very-light-gray: hsl(228, 33%, 97%);
 	--c-white: hsl(0, 0%, 100%);
+
+	--bdrs-global: 7px;
 }
 
 body {
