@@ -4,7 +4,10 @@ import styles from "../assets/styles/Comments.module.css";
 import MinusIcon from "../assets/icons/icon-minus.svg";
 import PlusIcon from "../assets/icons/icon-plus.svg";
 import ReplyIcon from "../assets/icons/icon-reply.svg";
+import EditIcon from "../assets/icons/icon-edit.svg";
+import DeleteIcon from "../assets/icons/icon-delete.svg";
 import Avatar from "./Avatar";
+import { useCurrentUser } from "@context/CurrentUserContext";
 
 function voteInfoReducer(state, action) {
 	switch (action.type) {
@@ -51,6 +54,7 @@ function voteInfoReducer(state, action) {
 }
 
 export default function Comment({ data }) {
+	const currentUser = useCurrentUser();
 	const [voteInfo, dispatchVoteInfo] = useReducer(voteInfoReducer, {
 		score: data.score,
 		upvotePressed: "false",
@@ -77,7 +81,7 @@ export default function Comment({ data }) {
 					{data.user.username}
 				</span>
 				{/* In real world case, precise date would be available and would be used with <time> */}
-				<span>
+				<span className={styles.comment_details_date}>
 					<small>{data.createdAt}</small>
 				</span>
 			</header>
@@ -107,10 +111,40 @@ export default function Comment({ data }) {
 					<MinusIcon className={styles.icon} />
 				</button>
 			</div>
-			<div className={styles.comment_reply_container}>
-				<ReplyIcon className={styles.icon} />
-				<span className={styles.comment_reply_text}>Reply</span>
-			</div>
+			{currentUser.username === data.user.username ? (
+				<div className={styles.comment_useraction_container}>
+					<button
+						type="button"
+						className={`${styles.comment_delete_button} ${styles.comment_action_button}`}
+					>
+						<DeleteIcon
+							className={`${styles.icon} ${styles.comment_action_icon}`}
+						/>
+						<span>Delete</span>
+					</button>
+					<button
+						type="button"
+						className={`${styles.comment_edit_button} ${styles.comment_action_button}`}
+					>
+						<EditIcon
+							className={`${styles.icon} ${styles.comment_action_icon}`}
+						/>
+						<span>Edit</span>
+					</button>
+				</div>
+			) : (
+				<div className={styles.comment_reply_button_wrapper}>
+					<button
+						type="button"
+						className={styles.comment_action_button}
+					>
+						<ReplyIcon
+							className={`${styles.icon} ${styles.comment_action_icon}`}
+						/>
+						<span>Reply</span>
+					</button>
+				</div>
+			)}
 		</article>
 	);
 }

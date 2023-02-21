@@ -24,7 +24,7 @@ export default function CreateNewResponse({ action }) {
 					id="new-comment-text"
 				></textarea>
 				<input
-					className={`${styles.newcomment_form_button} ${styles.response_action}`}
+					className={`${styles.newcomment_form_button} ${styles.button_respond}`}
 					type="submit"
 					value={action}
 				/>
