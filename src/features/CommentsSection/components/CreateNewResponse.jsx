@@ -8,7 +8,7 @@ function handleSubmitNewComment(e) {
 	console.log("new comment was submitted");
 }
 
-export default function CreateNewComment({ action }) {
+export default function CreateNewResponse({ action }) {
 	const currentUser = useCurrentUser();
 
 	return (
@@ -24,7 +24,7 @@ export default function CreateNewComment({ action }) {
 					id="new-comment-text"
 				></textarea>
 				<input
-					className={`${styles.newcomment_form_button} ${styles.button_action}`}
+					className={`${styles.newcomment_form_button} ${styles.response_action}`}
 					type="submit"
 					value={action}
 				/>

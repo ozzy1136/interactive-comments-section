@@ -1,7 +1,7 @@
 import styles from "./assets/styles/Comments.module.css";
 import projectData from "@data/data.json";
 import CommentThread from "./components/CommentThread";
-import CreateNewComment from "./components/CreateNewComment";
+import CreateNewResponse from "./components/CreateNewResponse";
 
 export default function CommentsSection() {
 	return (
@@ -18,7 +18,7 @@ export default function CommentsSection() {
 					</li>
 				))}
 			</ol>
-			<CreateNewComment action={"Send"} />
+			<CreateNewResponse action={"Send"} />
 		</section>
 	);
 }
