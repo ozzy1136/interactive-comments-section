@@ -12,7 +12,6 @@ import { useCurrentUser } from "@context/CurrentUserContext";
 function voteInfoReducer(state, action) {
 	switch (action.type) {
 		case "upvote_clicked": {
-			console.log(state);
 			return {
 				...state,
 				score:
@@ -30,7 +29,6 @@ function voteInfoReducer(state, action) {
 			};
 		}
 		case "downvote_clicked": {
-			console.log(state);
 			return {
 				...state,
 				score:
@@ -53,7 +51,7 @@ function voteInfoReducer(state, action) {
 	}
 }
 
-export default function Comment({ data }) {
+export default function Comment({ data, commenter }) {
 	const currentUser = useCurrentUser();
 	const [voteInfo, dispatchVoteInfo] = useReducer(voteInfoReducer, {
 		score: data.score,
@@ -93,7 +91,15 @@ export default function Comment({ data }) {
 				</span>
 			</header>
 			<div className={styles.comment_content_container}>
-				<p>{data.content}</p>
+				<p>
+					{typeof commenter === "string" && (
+						<span className={styles.comment_content_commenter}>
+							@{commenter}
+						</span>
+					)}
+					&nbsp;
+					{data.content}
+				</p>
 			</div>
 			<div className={styles.comment_score_container}>
 				<button

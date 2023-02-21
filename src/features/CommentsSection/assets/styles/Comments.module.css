@@ -110,6 +110,11 @@
 	margin-block-end: 1em;
 }
 
+.comment_content_commenter {
+	color: var(--c-grayish-blue);
+	font-weight: 700;
+}
+
 .comment_score_container {
 	width: fit-content;
 	height: 2.5em;

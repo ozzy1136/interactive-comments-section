@@ -1,6 +1,6 @@
 import Comment from "./Comment";
 
-export default function CommentThread({ data, level = 0 }) {
+export default function CommentThread({ data, level = 0, commenter }) {
 	const { replies, ...parent } = data;
 
 	return (
@@ -33,7 +33,7 @@ export default function CommentThread({ data, level = 0 }) {
 			`}</style>
 			<div className={level > 0 && "comment_thread_wrapper"}>
 				<li className={level > 0 && "comment_wrapper"}>
-					<Comment data={parent} level={level} />
+					<Comment data={parent} commenter={commenter} />
 				</li>
 				{replies !== undefined && (
 					<>
@@ -41,6 +41,7 @@ export default function CommentThread({ data, level = 0 }) {
 							<CommentThread
 								data={reply}
 								level={level + 1}
+								commenter={data.user.username}
 								key={reply.id}
 							/>
 						))}
