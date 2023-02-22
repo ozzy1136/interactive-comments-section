@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 import styles from "../assets/styles/Comments.module.css";
 import MinusIcon from "../assets/icons/icon-minus.svg";
 import PlusIcon from "../assets/icons/icon-plus.svg";
@@ -7,6 +9,7 @@ import DeleteIcon from "../assets/icons/icon-delete.svg";
 import Avatar from "./Avatar";
 import { useCurrentUser } from "@context/CurrentUserContext";
 import useVoteInfo from "../hooks/useVoteInfo";
+import CreateNewResponse from "./CreateNewResponse";
 
 export default function Comment({ data, commenter }) {
 	const currentUser = useCurrentUser();
@@ -15,6 +18,7 @@ export default function Comment({ data, commenter }) {
 		upvotePressed: "false",
 		downvotePressed: "false",
 	});
+	const [isReplying, setIsReplying] = useState(false);
 
 	const isCurrentUser = currentUser.username === data.user.username;
 
@@ -69,6 +73,10 @@ export default function Comment({ data, commenter }) {
 						type="button"
 						aria-label="Down vote"
 						aria-pressed={voteInfo.downvotePressed}
+						disabled={
+							voteInfo.downvotePressed === "false" &&
+							voteInfo.score <= 1
+						}
 						onClick={() =>
 							dispatchVoteSelection({ type: "downvote_clicked" })
 						}
@@ -98,6 +106,7 @@ export default function Comment({ data, commenter }) {
 						<button
 							type="button"
 							className={`${styles.comment_reply_button} ${styles.comment_action_button}`}
+							onClick={() => setIsReplying(!isReplying)}
 						>
 							<ReplyIcon className={styles.icon} />
 							<span>Reply</span>
@@ -105,6 +114,7 @@ export default function Comment({ data, commenter }) {
 					</div>
 				)}
 			</article>
+			{isReplying && <CreateNewResponse action="Reply" />}
 		</>
 	);
 }

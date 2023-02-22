@@ -8,11 +8,11 @@ function voteInfoReducer(state, action) {
 				score:
 					state.downvotePressed === "true"
 						? state.score + 2
-						: state.upvotePressed === "false"
-						? state.score + 1
-						: state.score - 1,
+						: state.upvotePressed === "true"
+						? state.score - 1
+						: state.score + 1,
 				upvotePressed:
-					state.upvotePressed === "false" ? "true" : "false",
+					state.upvotePressed === "true" ? "false" : "true",
 				downvotePressed:
 					state.downvotePressed === "true"
 						? "false"
@@ -23,13 +23,16 @@ function voteInfoReducer(state, action) {
 			return {
 				...state,
 				score:
-					state.upvotePressed === "true"
+					state.upvotePressed === "true" && state.score > 2
 						? state.score - 2
-						: state.downvotePressed === "false"
-						? state.score - 1
-						: state.score + 1,
+						: state.downvotePressed === "true"
+						? state.score + 1
+						: state.score - 1,
 				downvotePressed:
-					state.downvotePressed === "false" ? "true" : "false",
+					state.downvotePressed === "true" ||
+					(state.upvotePressed === "true" && state.score < 3)
+						? "false"
+						: "true",
 				upvotePressed:
 					state.upvotePressed === "true"
 						? "false"
