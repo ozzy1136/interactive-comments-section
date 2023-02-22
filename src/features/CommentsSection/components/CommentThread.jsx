@@ -1,38 +1,38 @@
 import Comment from "./Comment";
 
-export default function CommentThread({ data, level = 0, commenter }) {
+export default function CommentThread({ data, commenter }) {
 	const { replies, ...parent } = data;
 
 	return (
 		<>
 			<style jsx>{`
-				.comment_thread_wrapper {
+				.comment_thread_wrapper:not(:first-child) {
 					position: relative;
+					padding-inline-start: var(--reply-inline-spacer);
 				}
 
-				.comment_thread_wrapper::before {
+				.comment_thread_wrapper:not(:first-child)::before {
 					content: "";
 					display: block;
+					width: 2px;
+					height: calc(100% + 1em);
 					background-color: var(--c-light-gray);
 					position: absolute;
-					height: calc(100% + 1em);
-					width: 2px;
-					left: calc(${level - 1} * 1.25em);
+					left: 0;
 				}
 
-				.comment_thread_wrapper:last-child::before {
+				.comment_thread_wrapper:not(:first-child):last-child::before {
 					height: 100%;
 				}
 
-				.comment_wrapper {
-					position: relative;
-					margin-inline-start: calc(
-						var(--reply-inline-spacer) * ${level}
-					);
+				@media screen and (min-width: 1024px) {
+					.comment_thread_wrapper:not(:first-child)::before {
+						left: calc(var(--reply-inline-spacer) / 2);
+					}
 				}
 			`}</style>
-			<div className={level > 0 && "comment_thread_wrapper"}>
-				<li className={level > 0 && "comment_wrapper"}>
+			<div className={"comment_thread_wrapper"}>
+				<li className={"comment_wrapper"}>
 					<Comment data={parent} commenter={commenter} />
 				</li>
 				{replies !== undefined && (
@@ -40,7 +40,6 @@ export default function CommentThread({ data, level = 0, commenter }) {
 						{replies.map((reply) => (
 							<CommentThread
 								data={reply}
-								level={level + 1}
 								commenter={data.user.username}
 								key={reply.id}
 							/>
