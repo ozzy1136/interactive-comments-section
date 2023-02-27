@@ -11,7 +11,7 @@ import { useCurrentUser } from "@context/CurrentUserContext";
 import useVoteInfo from "../hooks/useVoteInfo";
 import CreateNewResponse from "./CreateNewResponse";
 
-export default function Comment({ data, commenter }) {
+export default function Comment({ data }) {
 	const currentUser = useCurrentUser();
 	const [voteInfo, dispatchVoteSelection] = useVoteInfo({
 		score: data.score,
@@ -45,9 +45,9 @@ export default function Comment({ data, commenter }) {
 				</header>
 				<div className={styles.comment_content_container}>
 					<p>
-						{typeof commenter === "string" && (
+						{Object.hasOwn(data, "replyingTo") && (
 							<span className={styles.comment_content_commenter}>
-								@{commenter}&nbsp;
+								@{data.replyingTo}&nbsp;
 							</span>
 						)}
 						{data.content}
@@ -114,7 +114,7 @@ export default function Comment({ data, commenter }) {
 					</div>
 				)}
 			</article>
-			{isReplying && <CreateNewResponse action="Reply" />}
+			{isReplying && <CreateNewResponse type="reply" />}
 		</>
 	);
 }

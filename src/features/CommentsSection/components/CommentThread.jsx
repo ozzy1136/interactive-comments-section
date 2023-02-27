@@ -4,25 +4,18 @@ import {
 } from "../assets/styles/Comments.module.css";
 import Comment from "./Comment";
 
-export default function CommentThread({ data, commenter }) {
+export default function CommentThread({ data }) {
 	const { replies, ...parent } = data;
 
 	return (
 		<div className={comment_thread_wrapper}>
 			<li className={comment_wrapper}>
-				<Comment data={parent} commenter={commenter} />
+				<Comment data={parent} />
 			</li>
-			{replies !== undefined && (
-				<>
-					{replies.map((reply) => (
-						<CommentThread
-							data={reply}
-							commenter={data.user.username}
-							key={reply.id}
-						/>
-					))}
-				</>
-			)}
+			{replies !== undefined &&
+				replies.map((reply) => (
+					<CommentThread data={reply} key={reply.id} />
+				))}
 		</div>
 	);
 }
