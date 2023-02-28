@@ -1,10 +1,22 @@
 // FOR DEMO PURPOSES ONLY
 // USE GUID FOR REAL WORLD PROJECTS
 
-import { createContext, useContext } from "react";
+import { createContext, useContext, useState } from "react";
 
-export const NextCommentIdContext = createContext(null);
+const NextCommentIdContext = createContext(null);
 
 export function useNextCommentId() {
 	return useContext(NextCommentIdContext);
+}
+
+export function NextCommentIdProvider({ children }) {
+	const [nextCommentId, setNextCommentId] = useState(5);
+
+	return (
+		<NextCommentIdContext.Provider
+			value={{ nextCommentId, setNextCommentId }}
+		>
+			{children}
+		</NextCommentIdContext.Provider>
+	);
 }
