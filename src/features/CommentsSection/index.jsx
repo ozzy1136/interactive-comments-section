@@ -27,14 +27,14 @@ export default function CommentsSection() {
 								>
 									<CommentThread
 										data={commentData}
-										indexes={[]}
+										parentIndexes={[]}
 										commentIndex={index}
 									/>
 								</ul>
 							</li>
 						))}
 					</ol>
-					<AddNewResponse type={"new_comment"} />
+					<AddNewResponse isNewComment={true} />
 				</section>
 			</UpdateCommentsProvider>
 		</NextCommentIdProvider>

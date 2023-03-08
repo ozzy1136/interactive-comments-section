@@ -9,11 +9,14 @@ import DeleteIcon from "../assets/icons/icon-delete.svg";
 import Avatar from "./Avatar";
 import { useCurrentUser } from "@context/CurrentUserContext";
 import useVoteInfo from "../hooks/useVoteInfo";
-import CreateNewResponse from "./CreateNewResponse";
+import AddNewResponse from "./AddNewResponse";
+import { useUpdateComments } from "../context/UpdateComments";
+import { deleteResponse } from "../utils";
 
-export default function Comment({ data }) {
+export default function Comment({ data, parentIndexes, index }) {
 	const currentUser = useCurrentUser();
-	const [voteInfo, dispatchVoteSelection] = useVoteInfo({
+	const updateComments = useUpdateComments();
+	const [voteInfo, dispatchVoteInfo] = useVoteInfo({
 		score: data.score,
 		upvotePressed: "false",
 		downvotePressed: "false",
@@ -21,6 +24,12 @@ export default function Comment({ data }) {
 	const [isReplying, setIsReplying] = useState(false);
 
 	const isCurrentUser = currentUser.username === data.user.username;
+
+	function handleDeleteResponse() {
+		updateComments((draft) => {
+			deleteResponse(draft, parentIndexes, data.id);
+		});
+	}
 
 	return (
 		<>
@@ -60,7 +69,7 @@ export default function Comment({ data }) {
 						aria-label="Up vote"
 						aria-pressed={voteInfo.upvotePressed}
 						onClick={() =>
-							dispatchVoteSelection({ type: "upvote_clicked" })
+							dispatchVoteInfo({ type: "upvote_clicked" })
 						}
 					>
 						<PlusIcon className={styles.icon} />
@@ -78,7 +87,7 @@ export default function Comment({ data }) {
 							voteInfo.score <= 1
 						}
 						onClick={() =>
-							dispatchVoteSelection({ type: "downvote_clicked" })
+							dispatchVoteInfo({ type: "downvote_clicked" })
 						}
 					>
 						<MinusIcon className={styles.icon} />
@@ -89,6 +98,7 @@ export default function Comment({ data }) {
 						<button
 							type="button"
 							className={`${styles.comment_delete_button} ${styles.comment_action_button}`}
+							onClick={handleDeleteResponse}
 						>
 							<DeleteIcon className={styles.icon} />
 							<span>Delete</span>
@@ -114,7 +124,12 @@ export default function Comment({ data }) {
 					</div>
 				)}
 			</article>
-			{isReplying && <CreateNewResponse type="reply" />}
+			{isReplying && (
+				<AddNewResponse
+					indexes={[...parentIndexes, index]}
+					replyingTo={data.user.username}
+				/>
+			)}
 		</>
 	);
 }

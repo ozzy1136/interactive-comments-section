@@ -4,31 +4,33 @@ import styles from "../assets/styles/Comments.module.css";
 import { useCurrentUser } from "@context/CurrentUserContext";
 import Avatar from "./Avatar";
 import { useNextCommentId } from "../context/NextCommentId";
+import { useUpdateComments } from "../context/UpdateComments";
+import { addNewResponse } from "../utils";
 
-/**
- *
- * @param {Object} props
- * @param {string} props.type Either "reply" or "send"
- */
-export default function CreateNewResponse({ type, addNewResponse }) {
+export default function AddNewResponse({
+	type,
+	indexes = [],
+	isNewComment = false,
+}) {
 	const currentUser = useCurrentUser();
 	const { nextCommentId, setNextCommentId } = useNextCommentId();
+	const updateComments = useUpdateComments();
 	const [responseContent, setResponseContent] = useState("");
 
 	function handleSubmitResponse(e) {
 		e.preventDefault();
 
-		addNewResponse((previousComments) =>
-			previousComments.concat({
+		updateComments((draft) => {
+			addNewResponse(draft, indexes, {
 				id: nextCommentId,
-				content: responseContent,
+				content: responseContent.trim(),
 				createdAt: "Today",
 				score: 1,
-				user: {
-					...currentUser,
-				},
-			})
-		);
+				...(replyingTo !== undefined && { replyingTo: replyingTo }),
+				user: { ...currentUser },
+				replies: [],
+			});
+		});
 
 		setResponseContent("");
 
@@ -41,7 +43,7 @@ export default function CreateNewResponse({ type, addNewResponse }) {
 				className={styles.newresponse_form_container}
 				onSubmit={handleSubmitResponse}
 				aria-label={
-					type === "send" ? "Add a new comment" : "Reply to comment"
+					isNewComment ? "Add a new comment" : "Reply to comment"
 				}
 			>
 				<textarea
@@ -51,11 +53,12 @@ export default function CreateNewResponse({ type, addNewResponse }) {
 					placeholder="Add a comment..."
 					name="new-response-text"
 					id="new-response-text"
+					required
 				></textarea>
 				<input
 					className={`${styles.newresponse_form_button} ${styles.button_respond}`}
 					type="submit"
-					value={type}
+					value={isNewComment ? "Send" : "Reply"}
 				/>
 			</form>
 			<div className={styles.newresponse_avatar_wrapper}>
