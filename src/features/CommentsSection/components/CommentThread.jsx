@@ -19,7 +19,7 @@ export default function CommentThread({ data, parentIndexes, commentIndex }) {
 			{replies.map((reply, index) => (
 				<CommentThread
 					data={reply}
-					indexes={[...parentIndexes, commentIndex]}
+					parentIndexes={[...parentIndexes, commentIndex]}
 					commentIndex={index}
 					key={reply.id}
 				/>

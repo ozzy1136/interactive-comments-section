@@ -8,9 +8,9 @@ import { useUpdateComments } from "../context/UpdateComments";
 import { addNewResponse } from "../utils";
 
 export default function AddNewResponse({
-	type,
-	indexes = [],
 	isNewComment = false,
+	indexes = [],
+	replyingTo,
 }) {
 	const currentUser = useCurrentUser();
 	const { nextCommentId, setNextCommentId } = useNextCommentId();
