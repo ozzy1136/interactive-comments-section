@@ -22,8 +22,8 @@
 	border: none;
 	background-color: var(--c-moderate-blue);
 	color: var(--c-very-light-gray);
-	padding-block: 1em;
-	padding-inline: 1.8em;
+	padding-block: 0.8em;
+	padding-inline: 1.6em;
 	border-radius: var(--bdrs-global);
 	text-transform: uppercase;
 	font-family: var(--ff-primary);

@@ -3,7 +3,7 @@
 
 import { createContext, useContext, useState } from "react";
 
-const NextCommentIdContext = createContext(null);
+const NextCommentIdContext = createContext();
 
 export function useNextCommentId() {
 	return useContext(NextCommentIdContext);
