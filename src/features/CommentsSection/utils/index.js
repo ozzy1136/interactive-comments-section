@@ -3,7 +3,11 @@ export function addNewResponse(comments, parentIndexes, newResponse) {
 		(repliesArray, parentIndex) => repliesArray[parentIndex].replies,
 		comments
 	);
-	parent.push(newResponse);
+	if (parentIndexes.length === 0) {
+		parent.push(newResponse);
+	} else {
+		parent.unshift(newResponse);
+	}
 }
 
 export function deleteResponse(comments, parentIndexes, idToDelete) {
