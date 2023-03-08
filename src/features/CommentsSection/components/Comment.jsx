@@ -128,6 +128,7 @@ export default function Comment({ data, parentIndexes, index }) {
 				<AddNewResponse
 					indexes={[...parentIndexes, index]}
 					replyingTo={data.user.username}
+					setIsReplying={setIsReplying}
 				/>
 			)}
 		</>

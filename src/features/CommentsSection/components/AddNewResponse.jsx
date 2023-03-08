@@ -11,6 +11,7 @@ export default function AddNewResponse({
 	isNewComment = false,
 	indexes = [],
 	replyingTo,
+	setIsReplying,
 }) {
 	const currentUser = useCurrentUser();
 	const { nextCommentId, setNextCommentId } = useNextCommentId();
@@ -35,6 +36,8 @@ export default function AddNewResponse({
 		setResponseContent("");
 
 		setNextCommentId((previousId) => previousId + 1);
+
+		if (!isNewComment) setIsReplying(false);
 	}
 
 	return (
