@@ -11,7 +11,7 @@ import { useCurrentUser } from "@context/CurrentUserContext";
 import useVoteInfo from "../hooks/useVoteInfo";
 import AddNewResponse from "./AddNewResponse";
 import { useUpdateComments } from "../context/UpdateComments";
-import { deleteResponse } from "../utils";
+import { deleteResponse, editResponse } from "../utils";
 
 export default function Comment({ data, parentIndexes, index }) {
 	const currentUser = useCurrentUser();
@@ -22,10 +22,25 @@ export default function Comment({ data, parentIndexes, index }) {
 		downvotePressed: "false",
 	});
 	const [isReplying, setIsReplying] = useState(false);
+	const [commentContent, setCommentContent] = useState(data.content);
+	const [isEditingComment, setIsEditingComment] = useState(false);
 
 	const isCurrentUser = currentUser.username === data.user.username;
 
-	function handleDeleteResponse() {
+	function handleEditButtonClick() {
+		setIsEditingComment(true);
+	}
+
+	function handleUpdateComment(e) {
+		e.preventDefault();
+
+		updateComments((draft) => {
+			editResponse(draft, parentIndexes, data.id, commentContent.trim());
+		});
+		setIsEditingComment(false);
+	}
+
+	function handleDeleteButtonClick() {
 		updateComments((draft) => {
 			deleteResponse(draft, parentIndexes, data.id);
 		});
@@ -53,14 +68,40 @@ export default function Comment({ data, parentIndexes, index }) {
 					</span>
 				</header>
 				<div className={styles.comment_content_container}>
-					<p>
-						{Object.hasOwn(data, "replyingTo") && (
-							<span className={styles.comment_content_commenter}>
-								@{data.replyingTo}&nbsp;
-							</span>
-						)}
-						{data.content}
-					</p>
+					{isEditingComment ? (
+						<form
+							className={styles.comment_content_form}
+							onSubmit={handleUpdateComment}
+						>
+							<textarea
+								className={`${styles.comment_content_form_textarea} ${styles.form_textarea}`}
+								value={commentContent}
+								onChange={(e) =>
+									setCommentContent(e.target.value)
+								}
+								name="user-reply"
+								id="edited-user-reply"
+								required
+							></textarea>
+							<button
+								className={`${styles.comment_content_form_button} ${styles.button_action}`}
+								type="submit"
+							>
+								Update
+							</button>
+						</form>
+					) : (
+						<p>
+							{Object.hasOwn(data, "replyingTo") && (
+								<span
+									className={styles.comment_content_commenter}
+								>
+									@{data.replyingTo}&nbsp;
+								</span>
+							)}
+							{data.content}
+						</p>
+					)}
 				</div>
 				<div className={styles.comment_score_container}>
 					<button
@@ -98,7 +139,8 @@ export default function Comment({ data, parentIndexes, index }) {
 						<button
 							type="button"
 							className={`${styles.comment_delete_button} ${styles.comment_action_button}`}
-							onClick={handleDeleteResponse}
+							onClick={handleDeleteButtonClick}
+							disabled={isEditingComment}
 						>
 							<DeleteIcon className={styles.icon} />
 							<span>Delete</span>
@@ -106,6 +148,8 @@ export default function Comment({ data, parentIndexes, index }) {
 						<button
 							type="button"
 							className={`${styles.comment_edit_button} ${styles.comment_action_button}`}
+							onClick={handleEditButtonClick}
+							disabled={isEditingComment}
 						>
 							<EditIcon className={styles.icon} />
 							<span>Edit</span>

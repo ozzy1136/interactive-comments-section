@@ -5,7 +5,7 @@ import { useCurrentUser } from "@context/CurrentUserContext";
 import Avatar from "./Avatar";
 import { useNextCommentId } from "../context/NextCommentId";
 import { useUpdateComments } from "../context/UpdateComments";
-import { addNewResponse } from "../utils";
+import { addResponse } from "../utils";
 
 export default function AddNewResponse({
 	isNewComment = false,
@@ -22,7 +22,7 @@ export default function AddNewResponse({
 		e.preventDefault();
 
 		updateComments((draft) => {
-			addNewResponse(draft, indexes, {
+			addResponse(draft, indexes, {
 				id: nextCommentId,
 				content: responseContent.trim(),
 				createdAt: "Today",
@@ -50,7 +50,7 @@ export default function AddNewResponse({
 				}
 			>
 				<textarea
-					className={styles.newresponse_form_textarea}
+					className={`${styles.newresponse_form_textarea} ${styles.form_textarea}`}
 					value={responseContent}
 					onChange={(e) => setResponseContent(e.target.value)}
 					placeholder="Add a comment..."
@@ -59,7 +59,7 @@ export default function AddNewResponse({
 					required
 				></textarea>
 				<input
-					className={`${styles.newresponse_form_button} ${styles.button_respond}`}
+					className={`${styles.newresponse_form_button} ${styles.button_action}`}
 					type="submit"
 					value={isNewComment ? "Send" : "Reply"}
 				/>
