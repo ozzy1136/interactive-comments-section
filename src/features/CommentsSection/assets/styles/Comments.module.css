@@ -30,6 +30,10 @@
 	font-weight: 500;
 }
 
+.button_action:hover {
+	cursor: pointer;
+}
+
 .button_action:active {
 	opacity: 0.3;
 }
@@ -207,6 +211,9 @@
 	min-height: 44px;
 	color: var(--c-light-grayish-blue);
 	vertical-align: middle;
+}
+
+.comment_score_toggle:hover {
 	cursor: pointer;
 }
 
@@ -256,7 +263,7 @@
 	font-weight: 700;
 }
 
-.comment_action_button:hover {
+.comment_action_button:hover:not(:disabled) {
 	cursor: pointer;
 }
 
@@ -320,7 +327,6 @@
 
 .newresponse_form_button {
 	justify-self: flex-end;
-	cursor: pointer;
 
 	@media (--viewport-lg) {
 		grid-column: 3 / span 1;

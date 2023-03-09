@@ -15,7 +15,7 @@ export default function CommentScore({ initScore, handleUpdateScore }) {
 
 	useEffect(() => {
 		handleUpdateScore(voteInfo.score);
-	}, [voteInfo]);
+	}, [voteInfo, handleUpdateScore]);
 
 	return (
 		<div className={styles.comment_score_container}>
