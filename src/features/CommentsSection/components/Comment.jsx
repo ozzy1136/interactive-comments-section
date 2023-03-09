@@ -1,37 +1,38 @@
 import { useState } from "react";
 
 import styles from "../assets/styles/Comments.module.css";
-import MinusIcon from "../assets/icons/icon-minus.svg";
-import PlusIcon from "../assets/icons/icon-plus.svg";
 import ReplyIcon from "../assets/icons/icon-reply.svg";
 import EditIcon from "../assets/icons/icon-edit.svg";
 import DeleteIcon from "../assets/icons/icon-delete.svg";
 import Avatar from "./Avatar";
 import { useCurrentUser } from "@context/CurrentUserContext";
-import useVoteInfo from "../hooks/useVoteInfo";
+import CommentScore from "./CommentScore";
 import AddNewResponse from "./AddNewResponse";
 import { useUpdateComments } from "../context/UpdateComments";
-import { deleteResponse, editResponse } from "../utils";
+import { deleteResponse, editResponse, updateScore } from "../utils";
 
 export default function Comment({ data, parentIndexes, index }) {
 	const currentUser = useCurrentUser();
 	const updateComments = useUpdateComments();
-	const [voteInfo, dispatchVoteInfo] = useVoteInfo({
-		score: data.score,
-		upvotePressed: "false",
-		downvotePressed: "false",
-	});
 	const [isReplying, setIsReplying] = useState(false);
-	const [commentContent, setCommentContent] = useState(data.content);
 	const [isEditingComment, setIsEditingComment] = useState(false);
+	const [commentContent, setCommentContent] = useState(data.content);
 
 	const isCurrentUser = currentUser.username === data.user.username;
+
+	function handleUpdateScore(parentIndexes, idToUpdate) {
+		return function (newScore) {
+			updateComments((draft) => {
+				updateScore(draft, parentIndexes, idToUpdate, newScore);
+			});
+		};
+	}
 
 	function handleEditButtonClick() {
 		setIsEditingComment(true);
 	}
 
-	function handleUpdateComment(e) {
+	function handleEditResponse(e) {
 		e.preventDefault();
 
 		updateComments((draft) => {
@@ -71,7 +72,7 @@ export default function Comment({ data, parentIndexes, index }) {
 					{isEditingComment ? (
 						<form
 							className={styles.comment_content_form}
-							onSubmit={handleUpdateComment}
+							onSubmit={handleEditResponse}
 						>
 							<textarea
 								className={`${styles.comment_content_form_textarea} ${styles.form_textarea}`}
@@ -103,37 +104,13 @@ export default function Comment({ data, parentIndexes, index }) {
 						</p>
 					)}
 				</div>
-				<div className={styles.comment_score_container}>
-					<button
-						className={`${styles.comment_score_toggle}`}
-						type="button"
-						aria-label="Up vote"
-						aria-pressed={voteInfo.upvotePressed}
-						onClick={() =>
-							dispatchVoteInfo({ type: "upvote_clicked" })
-						}
-					>
-						<PlusIcon className={styles.icon} />
-					</button>
-					<span className={styles.comment_score_value}>
-						{voteInfo.score}
-					</span>
-					<button
-						className={`${styles.comment_score_toggle}`}
-						type="button"
-						aria-label="Down vote"
-						aria-pressed={voteInfo.downvotePressed}
-						disabled={
-							voteInfo.downvotePressed === "false" &&
-							voteInfo.score <= 1
-						}
-						onClick={() =>
-							dispatchVoteInfo({ type: "downvote_clicked" })
-						}
-					>
-						<MinusIcon className={styles.icon} />
-					</button>
-				</div>
+				<CommentScore
+					initScore={data.score}
+					handleUpdateScore={handleUpdateScore(
+						parentIndexes,
+						data.id
+					)}
+				/>
 				{isCurrentUser ? (
 					<div className={styles.comment_useraction_container}>
 						<button

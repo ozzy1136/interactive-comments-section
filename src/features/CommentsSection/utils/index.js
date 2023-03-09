@@ -25,3 +25,9 @@ export function editResponse(comments, parentIndexes, idToEdit, newComment) {
 	const commentIndex = parent.findIndex(({ id }) => id === idToEdit);
 	if (commentIndex !== -1) parent[commentIndex].content = newComment;
 }
+
+export function updateScore(comments, parentIndexes, idToUpdate, newScore) {
+	const parent = getRepliesArray(comments, parentIndexes);
+	const commentIndex = parent.findIndex(({ id }) => id === idToUpdate);
+	if (commentIndex !== -1) parent[commentIndex].score = newScore;
+}
