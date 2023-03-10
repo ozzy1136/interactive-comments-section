@@ -1,24 +1,53 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import styles from "../assets/styles/Comments.module.css";
 import ReplyIcon from "../assets/icons/icon-reply.svg";
 import EditIcon from "../assets/icons/icon-edit.svg";
 import DeleteIcon from "../assets/icons/icon-delete.svg";
 import Avatar from "./Avatar";
-import { useCurrentUser } from "@context/CurrentUserContext";
 import CommentScore from "./CommentScore";
 import AddNewResponse from "./AddNewResponse";
+import { useCurrentUser } from "@context/CurrentUserContext";
 import { useUpdateComments } from "../context/UpdateComments";
-import { deleteResponse, editResponse, updateScore } from "../utils";
+import { useDeleteDialog } from "../context/DeleteDialog";
+import { editResponse, updateScore } from "../utils";
 
-export default function Comment({ data, parentIndexes, index }) {
+export default function Comment({
+	data,
+	parentIndexes,
+	index,
+	setCommentToDelete,
+}) {
 	const currentUser = useCurrentUser();
 	const updateComments = useUpdateComments();
+	const deleteDialog = useDeleteDialog();
 	const [isReplying, setIsReplying] = useState(false);
 	const [isEditingComment, setIsEditingComment] = useState(false);
 	const [commentContent, setCommentContent] = useState(data.content);
 
 	const isCurrentUser = currentUser.username === data.user.username;
+
+	useEffect(() => {
+		if (deleteDialog) {
+			deleteDialog.on("show", addBodyNoScroll);
+			deleteDialog.on("hide", removeBodyNoScroll);
+		}
+
+		return () => {
+			if (deleteDialog) {
+				deleteDialog.off("show", addBodyNoScroll);
+				deleteDialog.off("hide", removeBodyNoScroll);
+			}
+		};
+	}, [deleteDialog]);
+
+	function addBodyNoScroll() {
+		document.body.classList.toggle("no-scroll", true);
+	}
+
+	function removeBodyNoScroll() {
+		document.body.classList.toggle("no-scroll", false);
+	}
 
 	function handleUpdateScore(parentIndexes, idToUpdate) {
 		return function (newScore) {
@@ -39,12 +68,6 @@ export default function Comment({ data, parentIndexes, index }) {
 			editResponse(draft, parentIndexes, data.id, commentContent.trim());
 		});
 		setIsEditingComment(false);
-	}
-
-	function handleDeleteButtonClick() {
-		updateComments((draft) => {
-			deleteResponse(draft, parentIndexes, data.id);
-		});
 	}
 
 	return (
@@ -116,7 +139,14 @@ export default function Comment({ data, parentIndexes, index }) {
 						<button
 							type="button"
 							className={`${styles.comment_delete_button} ${styles.comment_action_button}`}
-							onClick={handleDeleteButtonClick}
+							onClick={() => {
+								setCommentToDelete((state) => ({
+									...state,
+									parentIndexes: parentIndexes,
+									id: data.id,
+								}));
+								deleteDialog.show();
+							}}
 							disabled={isEditingComment}
 						>
 							<DeleteIcon className={styles.icon} />

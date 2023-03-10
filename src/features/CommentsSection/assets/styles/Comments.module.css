@@ -343,3 +343,98 @@
 		grid-row-start: 1;
 	}
 }
+
+/**
+ * 1. Make the dialog container, and its child overlay spread across
+ *    the entire window.
+ */
+.dialog_container,
+.dialog_overlay {
+	position: fixed; /* 1 */
+	top: 0; /* 1 */
+	right: 0; /* 1 */
+	bottom: 0; /* 1 */
+	left: 0; /* 1 */
+}
+
+/**
+  * 1. Make sure the dialog container and all its descendants sits on
+  *    top of the rest of the page.
+  * 2. Make the dialog container a flex container to easily center the
+  *    dialog.
+  */
+.dialog_container {
+	z-index: 2; /* 1 */
+	display: flex; /* 2 */
+}
+
+/**
+  * 1. Make sure the dialog container and all its descendants are not
+  *    visible and not focusable when it is hidden.
+  */
+.dialog_container[aria-hidden="true"] {
+	display: none; /* 1 */
+}
+
+/**
+  * 1. Make the overlay look like an overlay.
+  */
+.dialog_overlay {
+	background-color: rgb(43 46 56 / 0.9); /* 1 */
+}
+
+/**
+  * 1. Vertically and horizontally center the dialog in the page.
+  * 2. Make sure the dialog sits on top of the overlay.
+  * 3. Make sure the dialog has an opaque background.
+  */
+.dialog_content_container {
+	margin: auto; /* 1 */
+	z-index: 2; /* 2 */
+	position: relative; /* 2 */
+	background-color: var(--c-white); /* 3 */
+	width: 90%;
+	max-width: 40ch;
+	padding-block: 1rem;
+	padding-inline: 1rem;
+	border-radius: var(--bdrs-global);
+}
+
+.dialog_title {
+	margin-block-end: 0.7em;
+	color: var(--c-dark-blue);
+	font-weight: 700;
+}
+
+.dialog_content {
+	margin-block-end: 0.7em;
+}
+
+.dialog_buttons_container {
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	column-gap: 1rem;
+	justify-content: center;
+}
+
+.dialog_button {
+	border: unset;
+	width: fit-content;
+	height: fit-content;
+	padding-block: 0.5rem;
+	padding-inline: 0.7rem;
+	color: var(--c-white);
+	font-family: var(--ff-primary);
+	text-transform: uppercase;
+	font-size: smaller;
+	border-radius: var(--bdrs-global);
+}
+
+.dialog_button_cancel {
+	background-color: var(--c-grayish-blue);
+}
+
+.dialog_button_delete {
+	background-color: var(--c-soft-red);
+}

@@ -4,7 +4,12 @@ import {
 } from "../assets/styles/Comments.module.css";
 import Comment from "./Comment";
 
-export default function CommentThread({ data, parentIndexes, commentIndex }) {
+export default function CommentThread({
+	data,
+	parentIndexes,
+	commentIndex,
+	setCommentToDelete,
+}) {
 	const { replies, ...commentData } = data;
 
 	return (
@@ -14,6 +19,7 @@ export default function CommentThread({ data, parentIndexes, commentIndex }) {
 					data={commentData}
 					parentIndexes={parentIndexes}
 					index={commentIndex}
+					setCommentToDelete={setCommentToDelete}
 				/>
 			</li>
 			{replies.map((reply, index) => (
@@ -21,6 +27,7 @@ export default function CommentThread({ data, parentIndexes, commentIndex }) {
 					data={reply}
 					parentIndexes={[...parentIndexes, commentIndex]}
 					commentIndex={index}
+					setCommentToDelete={setCommentToDelete}
 					key={reply.id}
 				/>
 			))}
