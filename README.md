@@ -49,7 +49,7 @@ Users should be able to:
 
 ### What I learned
 
-The complexities of recurstion! And how complicated it can be to update deeply nested state in React. Due to those complexities, the Immer package was necessary for passing immutable state to the function that updates the comments data. Still, I needed a way to access the replies array that the comment that is being updated belongs to. After some evenings struggling to find a solution on my own and on the Internet, I finally stumbled across the article I have listed in [Useful resources](#useful-resources) and was able to add the necessary logic for updating the comments.
+The complexities of recursion! And how complicated it can be to update deeply nested state in React. Due to those complexities, the Immer package was necessary for passing immutable state to the function that updates the comments data. Still, I needed a way to access the replies array that the comment that is being updated belongs to. After some evenings struggling to find a solution on my own and on the Internet, I finally stumbled across the article I have listed in [Useful resources](#useful-resources) and was able to add the necessary logic for updating the comments.
 
 ### Useful resources
 
