@@ -72,35 +72,8 @@
 	grid-column: full;
 
 	@media (--viewport-lg) {
-		--reply-inline-spacer: 4em;
+		--reply-inline-spacer: 3em;
 	}
-}
-
-.comment_thread_wrapper:not(:first-child) {
-	position: relative;
-	padding-inline-start: var(--reply-inline-spacer);
-}
-
-.comment_thread_wrapper:not(:first-child)::before {
-	content: "";
-	display: block;
-	width: 2px;
-	height: calc(100% + 1em);
-	background-color: var(--c-light-gray);
-	position: absolute;
-	left: 0;
-
-	@media screen and (min-width: 1024px) {
-		left: calc(var(--reply-inline-spacer) / 2);
-	}
-}
-
-.comment_thread_wrapper:not(:first-child):last-child::before {
-	height: 100%;
-}
-
-.comment_wrapper {
-	margin-block-end: 1em;
 }
 
 .comment_container {
@@ -310,6 +283,10 @@
 		padding-block: 1em;
 		padding-inline: 2em;
 	}
+}
+
+.comment_container ~ .newresponse_container {
+	margin-block-end: 1em;
 }
 
 .newresponse_form_container {

@@ -33,6 +33,7 @@ export default function CommentsSection() {
 						<h1 aria-hidden="false" hidden>
 							Comments Section
 						</h1>
+						{/* Comment thread markup = List (comments) of lists (replies and sub-replies) */}
 						<ol className={styles.comments_threads_container}>
 							{commentsData.map((commentData, index) => (
 								<li key={commentData.id}>

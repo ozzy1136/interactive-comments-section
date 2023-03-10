@@ -1,7 +1,3 @@
-import {
-	comment_thread_wrapper,
-	comment_wrapper,
-} from "../assets/styles/Comments.module.css";
 import Comment from "./Comment";
 
 export default function CommentThread({
@@ -13,8 +9,37 @@ export default function CommentThread({
 	const { replies, ...commentData } = data;
 
 	return (
-		<div className={comment_thread_wrapper}>
-			<li className={comment_wrapper}>
+		<>
+			<style jsx>{`
+				.comment_wrapper {
+					position: relative;
+					padding-inline-start: calc(
+						var(--reply-inline-spacer) * ${parentIndexes.length}
+					);
+				}
+
+				.comment_wrapper:not(:first-child)::before {
+					content: "";
+					display: block;
+					width: 2px;
+					height: calc(100%);
+					background-color: var(--c-light-gray);
+					position: absolute;
+					left: calc(
+						var(--reply-inline-spacer) *
+							(${parentIndexes.length} - 1)
+					);
+
+					@media screen and (min-width: 1024px) {
+						left: calc(var(--reply-inline-spacer) / 2);
+					}
+				}
+
+				// .comment_wrapper:not(:first-child):last-child::before {
+				// 	height: 100%;
+				// }
+			`}</style>
+			<li className={"comment_wrapper"}>
 				<Comment
 					data={commentData}
 					parentIndexes={parentIndexes}
@@ -31,6 +56,6 @@ export default function CommentThread({
 					key={reply.id}
 				/>
 			))}
-		</div>
+		</>
 	);
 }
