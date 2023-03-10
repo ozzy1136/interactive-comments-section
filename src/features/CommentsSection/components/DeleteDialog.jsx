@@ -36,7 +36,7 @@ export default function DeleteDialog({ attr, commentToDelete }) {
 					</p>
 					<p className={styles.dialog_content}>
 						Are you sure you want to delete this comment? This will
-						remove the comment and can't be undone.
+						remove the comment and can&apos;t be undone.
 					</p>
 					<div className={styles.dialog_buttons_container}>
 						<button
