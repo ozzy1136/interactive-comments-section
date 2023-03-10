@@ -18,7 +18,7 @@ export default function CommentThread({
 					);
 				}
 
-				.comment_wrapper:not(:first-child)::before {
+				.comment_wrapper::before {
 					content: "";
 					display: block;
 					width: 2px;
@@ -29,17 +29,22 @@ export default function CommentThread({
 						var(--reply-inline-spacer) *
 							(${parentIndexes.length} - 1)
 					);
+				}
 
-					@media screen and (min-width: 1024px) {
-						left: calc(var(--reply-inline-spacer) / 2);
+				@media screen and (min-width: 1024px) {
+					.comment_wrapper::before {
+						left: calc(
+							var(--reply-inline-spacer) *
+								${parentIndexes.length - 0.5}
+						);
 					}
 				}
 
-				// .comment_wrapper:not(:first-child):last-child::before {
+				// .comment_wrapper:last-child::before {
 				// 	height: 100%;
 				// }
 			`}</style>
-			<li className={"comment_wrapper"}>
+			<li className={parentIndexes.length > 0 && "comment_wrapper"}>
 				<Comment
 					data={commentData}
 					parentIndexes={parentIndexes}
